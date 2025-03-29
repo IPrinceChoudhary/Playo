@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400&family=Montserrat:wght@100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* fonts */
+  --font-monsterrat: "Monsterrat", sans-serif; 
+  --font-lato: "Lato", sans-serif;
+
+  /* color themes */
+
+  /* light color theme */
+  --color-bg: #E8F6F8;
+  --color-primary: #0077B6;
+  --color-text: #252525;
+  --color-card: #FFFFFF;
+  --color-hover: #CDEAF7;
+
+  /* dark color theme */
+}
