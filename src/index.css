@@ -17,4 +17,9 @@
   --color-hover: #CDEAF7;
 
   /* dark color theme */
+  --color-bg-dark: #0A192F;
+  --color-primary-dark: #00A6ED;
+  --color-text-dark: #E0E7FF;
+  --color-card-dark: #1B2A41;
+  --color-hover-dark: #213A5F;
 }

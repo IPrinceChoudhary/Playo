@@ -7,10 +7,11 @@ Initializing:-
 - import tailwind(4th version) and setup tailwind
 - decide color theme
 - import google fonts(Monsterrat for headings and Lato for paragraphs)
-- using css variables in index file for fonts
+- using css variables in index file for fonts and color themes
 - layout, pages, utils, assets, components folder and config.js created
 - added svg logo (fastest and less space and customizable)
 - added menu bar (react icons library)
+- added search bar
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

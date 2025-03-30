@@ -15,8 +15,8 @@ const Logo = () => {
               x2="100%"
               y2="0%"
             >
-              <stop offset="0%" stop-color="#00A6ED" />
-              <stop offset="100%" stop-color="#E0E7FF" />
+              <stop offset="0%" stopColor="#00A6ED" />
+              <stop offset="100%" stopColor="#E0E7FF" />
             </linearGradient>
           </defs>
           <g transform="translate(20, 15)">
@@ -33,9 +33,9 @@ const Logo = () => {
             <text
               x="65"
               y="35"
-              font-family="Arial, sans-serif"
-              font-size="32"
-              font-weight="800"
+              fontFamily="Arial, sans-serif"
+              fontSize="32"
+              fontWeight="800"
               fill="url(#darkTextGradient)"
             >
               PLAYO
