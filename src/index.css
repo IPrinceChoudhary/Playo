@@ -9,17 +9,17 @@
 
   /* color themes */
 
-  /* light color theme */
-  --color-bg: #E8F6F8;
-  --color-primary: #0077B6;
+  /* melting glacier and brilliant blue */
+  --color-bg-light: #edf8f9;
+  --color-bg-medium: #E8F6F8;
+  --color-bg-dark: #cad6d8;
+  --color-bg-darkest: #90989a;
+  --color-primary-lightest: #d3e4f2;
+  --color-primary-light: #91bbdc;
+  --color-primary-medium: #0077B6;
+  --color-primary-dark: #00476f;
+  --color-primary-darkest: #001c30;
   --color-text: #252525;
   --color-card: #FFFFFF;
   --color-hover: #CDEAF7;
-
-  /* dark color theme */
-  --color-bg-dark: #0A192F;
-  --color-primary-dark: #00A6ED;
-  --color-text-dark: #E0E7FF;
-  --color-card-dark: #1B2A41;
-  --color-hover-dark: #213A5F;
 }

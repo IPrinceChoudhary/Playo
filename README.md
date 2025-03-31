@@ -12,6 +12,9 @@ Initializing:-
 - added svg logo (fastest and less space and customizable)
 - added menu bar (react icons library)
 - added search bar
+- added search icon
+- added login | signup
+- firebase project created in firebase
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.
