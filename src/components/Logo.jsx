@@ -5,7 +5,7 @@ const Logo = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 300 80"
-          className="h-12 w-auto"
+          className="h-14 w-auto"
         >
           <defs>
             <linearGradient

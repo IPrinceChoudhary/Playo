@@ -13,8 +13,9 @@ Initializing:-
 - added menu bar (react icons library)
 - added search bar
 - added search icon
-- added login | signup
-- firebase project created in firebase
+- added singin | signup buttons
+- firebase project created in firebase and firebase setup
+- planned the design, structure and flow of signin, signup and sing out functionality
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

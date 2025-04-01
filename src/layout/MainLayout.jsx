@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar"
 
 const mainLayout = () => {
   return (
-    <div className="mx-5 my-1">
+    <div className="">
       <Header/>
       <Sidebar/>
     </div>
