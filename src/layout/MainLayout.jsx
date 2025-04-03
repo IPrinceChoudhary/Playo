@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar"
 
 const mainLayout = () => {
   return (
-    <div className="">
+    <div className="relative h-screen">
       <Header/>
       <Sidebar/>
     </div>

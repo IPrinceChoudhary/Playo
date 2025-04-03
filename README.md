@@ -16,6 +16,9 @@ Initializing:-
 - added singin | signup buttons
 - firebase project created in firebase and firebase setup
 - planned the design, structure and flow of signin, signup and sing out functionality
+- creating AuthModal modal:-
+- cross button
+- tabbed modal to switch between signup and signin
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.
