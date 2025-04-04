@@ -19,6 +19,9 @@ Initializing:-
 - creating AuthModal modal:-
 - cross button
 - tabbed modal to switch between signup and signin
+- made code for signin and signup more readable, efficient and manageable
+- created 2 separate components for both tabs
+- created config for Auth modal (config driven UI)
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.
