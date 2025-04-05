@@ -9,17 +9,49 @@
 
   /* color themes */
 
-  /* melting glacier and brilliant blue */
-  --color-bg-light: #edf8f9;
-  --color-bg-medium: #E8F6F8;
-  --color-bg-dark: #cad6d8;
-  --color-bg-darkest: #90989a;
-  --color-primary-lightest: #d3e4f2;
-  --color-primary-light: #91bbdc;
-  --color-primary-medium: #0077B6;
-  --color-primary-dark: #00476f;
-  --color-primary-darkest: #001c30;
-  --color-text: #252525;
-  --color-card: #FFFFFF;
-  --color-hover: #CDEAF7;
+  /* melting glacier and Fresh blue */
+
+  /* melting-glacier mixed with white(tint)*/
+  --color-glacier-100: #fdfefe;
+  --color-glacier-200: #fafdfe;
+  --color-glacier-300: #f8fcfd;
+  --color-glacier-400: #f6fbfc;
+  --color-glacier-500: #f4fbfc;
+  --color-glacier-600: #f1fafb;
+  --color-glacier-700: #eff9fa;
+  --color-glacier-800: #edf8f9;
+  --color-glacier-900: #eaf7f9;
+  --color-glacier-1000: #E8F6F8; /* Primary */
+  /* melting-glacier mixed with black(shades)*/
+  --color-glacier-1100: #cad6d8;
+  --color-glacier-1200: #acb7b8;
+  --color-glacier-1300: #90989a;
+  --color-glacier-1400: #747b7c;
+  --color-glacier-1500: #595f60;
+  --color-glacier-1600: #404545;
+  --color-glacier-1700: #292c2c;
+  --color-glacier-1800: #131515;
+  --color-glacier-1900: #030303;
+
+  /* fresh-blue mixed with white(tints)*/
+  --color-fresh-100: #ecf7fe;
+  --color-fresh-200: #D8EEFD;
+  --color-fresh-300: #c5e5fb;
+  --color-fresh-400: #b1ddfa;
+  --color-fresh-500: #9dd4f8;
+  --color-fresh-600: #88cbf6;
+  --color-fresh-700: #72c2f4;
+  --color-fresh-800: #5ab9f2;
+  --color-fresh-900: #3caff0;
+  --color-fresh-1000: #00a6ed; /* Primary */
+  /* fresh-blue mixed with black(shades)*/
+  --color-fresh-1100: #0090ce;
+  --color-fresh-1200: #007ab0;
+  --color-fresh-1300: #006593;
+  --color-fresh-1400: #005177;
+  --color-fresh-1500: #003e5c;
+  --color-fresh-1600: #002b42;
+  --color-fresh-1700: #001a2a;
+  --color-fresh-1800: #000a14;
+  --color-fresh-1900: #000103;
 }

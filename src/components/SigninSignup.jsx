@@ -13,13 +13,13 @@ const SigninSignup = () => {
   return (
     <div className="flex justify-evenly items-center w-[15rem]">
       <button
-        className="border px-5 py-2 rounded-md hover:bg-hover transition cursor-pointer"
+        className="border px-5 py-2 rounded-md hover:bg-glacier-1100 transition cursor-pointer"
         onClick={() => openModal("signin")}
       >
         Sign In
       </button>
       <button
-        className="border px-5 py-2 rounded-md bg-primary-light hover:bg-hover transition cursor-pointer"
+        className="border px-5 py-2 rounded-md bg-fresh-500 hover:bg-glacier-1100 transition cursor-pointer"
         onClick={() => openModal("signup")}
       >
         Sign Up
