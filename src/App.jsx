@@ -2,7 +2,7 @@ import MainLayout from "./layout/mainLayout"
 
 const App = () => {
   return (
-    <div>
+    <div className="font-lato">
       <MainLayout/>
     </div>
   );

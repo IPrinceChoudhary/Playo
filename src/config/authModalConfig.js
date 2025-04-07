@@ -36,8 +36,20 @@ export const authModalConfig = {
         placeholder: "Name",
         required: true,
         validation: {
-          minLength: 2,
-          message: "Name must be at least 2 characters long",
+          rules: [
+            {
+              condition: (value) => value.trim().length === 0,
+              message: "This field is required",
+            },
+            {
+              condition: (value) => value.length < 3,
+              message: "Name must be at least 3 characters long",
+            },
+            {
+              condition: (value) => value.length > 20,
+              message: "Name must be less than 20 characters",
+            },
+          ],
         },
       },
       { ...sharedFields.email },

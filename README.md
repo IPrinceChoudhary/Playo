@@ -21,7 +21,10 @@ Initializing:-
 - tabbed modal to switch between signup and signin
 - made code for signin and signup more readable, efficient and manageable
 - created 2 separate components for both tabs
-- created config for Auth modal (config driven UI)
+- created config for Auth modal (config driven UI)(DRY)
+- mapping input fields with unique key and optional chaining
+- AuthOptions page(account with google and guest account)
+- Signup - creating one state(initial value an object) for multiple form inputs(controlled inputs by react)
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

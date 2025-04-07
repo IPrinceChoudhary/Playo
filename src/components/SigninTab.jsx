@@ -1,4 +1,5 @@
 import { authModalConfig } from "../config/authModalConfig";
+import AuthOptions from "./AuthOptions";
 
 const SigninTab = () => {
   return (
@@ -20,6 +21,9 @@ const SigninTab = () => {
           Sign In
         </button>
       </form>
+      <div>
+        <AuthOptions/>
+      </div>
     </div>
   );
 };
