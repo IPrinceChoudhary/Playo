@@ -25,6 +25,10 @@ Initializing:-
 - mapping input fields with unique key and optional chaining
 - AuthOptions page(account with google and guest account)
 - Signup - creating one state(initial value an object) for multiple form inputs(controlled inputs by react)
+- Abstract the logic of empty field error in the helper function
+- Added invisible label tag for SEO and better accessibility(screen reader only(sr-only className in t.css))
+- Added icons for empty input fields
+- Added timeout using useEffect on errors
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

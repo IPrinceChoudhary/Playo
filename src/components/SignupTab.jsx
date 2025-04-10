@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { authModalConfig } from "../config/authModalConfig";
 import AuthOptions from "./AuthOptions";
+import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 
 const SignupTab = () => {
   const [formData, setFormData] = useState({
@@ -18,52 +19,75 @@ const SignupTab = () => {
     });
   };
 
+  const getErrorMessage = (fieldName) => {
+    const formattedFieldError =
+      fieldName !== "confirmPassword"
+        ? fieldName.charAt(0).toUpperCase() + fieldName.slice(1) // capital first letter
+        : "Confirm Password";
+    return `${formattedFieldError} field is required`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    authModalConfig?.signup?.fields?.forEach((field) => {
-      if (field?.required && !formData[field?.name].trim()) {
-        newErrors[field?.name] = `${
-          field?.name !== "confirmPassword"
-            ? field?.name?.charAt(0)?.toUpperCase() +
-              field?.name?.slice(1) +
-              " " +
-              "field is required"
-            : "Confirm Password field is required"
-        }`;
-      } // capital first letter
+    if (!authModalConfig?.signup?.fields) {
+      return;
+    }
+
+    authModalConfig.signup.fields.forEach((field) => {
+      if (field.required && !formData[field.name].trim()) {
+        newErrors[field.name] = getErrorMessage(field.name);
+      }
     });
     setErrors(newErrors);
   };
 
+  useEffect(()=>{
+    if(Object.keys(errors).length > 0){
+      const timeOutId = setTimeout(()=>{
+        setErrors({})
+      }, 3000);
+      return ()=> clearTimeout(timeOutId);
+    }
+  }, [errors])
+
   return (
-    <div>
+    <div className="w-full">
       <h2 className="text-center font-monsterrat text-2xl font-bold mt-10 text-fresh-1500">
         Create an account with Playo
       </h2>
       <form
-        className="mt-8"
+        className="mt-8 w-full"
         onSubmit={handleSubmit}
         noValidate
         id="signup-form"
       >
-        {authModalConfig?.signup?.fields?.map((field) => (
-          <div
-            key={field?.name}
-            className="flex flex-col items-center justify-center mb-7"
-          >
-            <input
-              type={field?.type}
-              name={field?.name}
-              value={formData[field?.name] || ""}
-              onChange={handleInput}
-              placeholder={field?.placeholder}
-              required={field?.required}
-              className="w-100 h-10 border p-2 focus:outline-none bg-glacier-200"
-            />
-            {errors[field?.name] && (
-              <p className="text-red-500 text-sm mt-1">{errors[field?.name]}</p>
+        {authModalConfig.signup.fields.map((field) => (
+          <div key={field.name} className="mb-7 w-full h-12">
+            <label htmlFor={field.name} className="sr-only">
+              {field.placeholder}
+            </label>
+            <div className="relative w-full">
+              <input
+                type={field.type}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleInput}
+                placeholder={field.placeholder}
+                required={field.required}
+                className={`block mx-auto w-100 h-10 border rounded-md p-2 ${errors[field.name] ? "border-red-400" : "border-glacier-1100"} bg-glacier-200 focus:outline-glacier-1100`}
+              />
+              {errors[field.name] ? (
+                <FaCircleExclamation className="absolute right-42 top-1/2 transform -translate-y-1/2 text-red-400"/>
+              ) : formData[field.name].trim() ? (
+                <FaCircleCheck className="absolute right-42 top-1/2 transform -translate-y-1/2 text-green-400"/>
+              ) : null}
+            </div>
+            {errors[field.name] && (
+              <p className="text-red-400 text-[12px] mt-[2px] tracking-wider ml-41">
+                {errors[field.name]}
+              </p>
             )}
           </div>
         ))}
