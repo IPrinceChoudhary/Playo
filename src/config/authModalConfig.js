@@ -5,10 +5,40 @@ const sharedFields = {
     name: "email",
     placeholder: "Email",
     required: true,
-    validation: {
-      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      message: "Please enter a valid email address",
-    },
+    validation: [
+      {
+        rule: "required",
+        message: "Email is required",
+      },
+      {
+        rule: "pattern",
+        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        message: "Please enter a valid email address",
+      },
+    ],
+  },
+  password: {
+    type: "password",
+    name: "password",
+    placeholder: "Password",
+    required: true,
+    validation: [
+      {
+        rule: "required",
+        message: "Password is required",
+      },
+      {
+        rule: "minLength",
+        value: 8,
+        message: "Password must be at least 8 characters long",
+      },
+      {
+        rule: "pattern",
+        value: /^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/,
+        message:
+          "Password must contain at least one capital letter and one special character",
+      },
+    ],
   },
 };
 
@@ -16,16 +46,7 @@ export const authModalConfig = {
   signin: {
     fields: [
       { ...sharedFields.email },
-      {
-        type: "password",
-        name: "password",
-        placeholder: "Password",
-        required: true,
-        validation: {
-          minLength: 8,
-          message: "Password must be at least 8 characters long",
-        },
-      },
+      {...sharedFields.password},
     ],
   },
   signup: {
@@ -35,63 +56,47 @@ export const authModalConfig = {
         name: "name",
         placeholder: "Name",
         required: true,
-        validation: {
-          rules: [
-            {
-              condition: (value) => value.trim().length === 0,
-              message: "This field is required",
-            },
-            {
-              condition: (value) => value.length < 3,
-              message: "Name must be at least 3 characters long",
-            },
-            {
-              condition: (value) => value.length > 20,
-              message: "Name must be less than 20 characters",
-            },
-          ],
-        },
+        validation: [
+          {
+            rule: "required",
+            message: "Name is required",
+          },
+          {
+            rule: "minLength",
+            value: 2,
+            message: "Name must be at least 2 characters long",
+          },
+          {
+            rule: "maxLength",
+            value: 30,
+            message: "Name cannot exceed 30 characters",
+          },
+          {
+            rule: "pattern",
+            value: /^(?!.*\..*\.)[A-Za-z\s.]+$/,
+            message:
+              "Name can only contain letters, spaces, and at most one dot",
+          },
+        ],
       },
       { ...sharedFields.email },
-      {
-        type: "password",
-        name: "password",
-        placeholder: "Password",
-        required: true,
-        validation: {
-          minLength: 8,
-          pattern:
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-          message:
-            "Password must be 8+ characters with a letter, number, and special character",
-        },
-      },
+      {...sharedFields.password},
       {
         type: "password",
         name: "confirmPassword",
         placeholder: "Confirm Password",
         required: true,
-        validation: {
-          matchField: "password",
-          message: "Passwords do not match",
-        },
+        validation: [
+          {
+            rule: "required",
+            message: "Confirm Password is required",
+          },
+          {
+            matchField: "password",
+            message: "Passwords do not match",
+          },
+        ],
       },
     ],
   },
-  buttonStyles: {
-    submit: "bg-blue-500 text-white hover:bg-blue-600",
-    google: "bg-red-500 text-white hover:bg-red-600",
-    guest: "bg-gray-500 text-white hover:bg-gray-600",
-  },
-  // authOptions: {
-  //   google: {
-  //     text: (mode) =>
-  //       mode === "signin" ? "Sign In with Google" : "Sign Up with Google",
-  //     className: "bg-red-500 text-white hover:bg-red-600",
-  //   },
-  //   guest: {
-  //     text: "Continue as Guest",
-  //     className: "bg-gray-500 text-white hover:bg-gray-600",
-  //   },
-  // },
 };
