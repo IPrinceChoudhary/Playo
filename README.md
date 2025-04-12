@@ -16,6 +16,7 @@ Initializing:-
 - added singin | signup buttons
 - firebase project created in firebase and firebase setup
 - planned the design, structure and flow of signin, signup and sing out functionality
+
 - creating AuthModal modal:-
 - cross button
 - tabbed modal to switch between signup and signin
@@ -29,6 +30,7 @@ Initializing:-
 - Added invisible label tag for SEO and better accessibility(screen reader only(sr-only className in t.css))
 - Added icons for empty input fields
 - Added timeout using useEffect on errors
+- Dynamically added validation message
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

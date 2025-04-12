@@ -44,10 +44,7 @@ const sharedFields = {
 
 export const authModalConfig = {
   signin: {
-    fields: [
-      { ...sharedFields.email },
-      {...sharedFields.password},
-    ],
+    fields: [{ ...sharedFields.email }, { ...sharedFields.password }],
   },
   signup: {
     fields: [
@@ -80,7 +77,7 @@ export const authModalConfig = {
         ],
       },
       { ...sharedFields.email },
-      {...sharedFields.password},
+      { ...sharedFields.password },
       {
         type: "password",
         name: "confirmPassword",
@@ -92,7 +89,8 @@ export const authModalConfig = {
             message: "Confirm Password is required",
           },
           {
-            matchField: "password",
+            rule: "match",
+            value: "password",
             message: "Passwords do not match",
           },
         ],

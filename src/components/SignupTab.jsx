@@ -11,26 +11,42 @@ const SignupTab = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [validFields, setValidFields] = useState({});
 
-  const validateField = (value, fieldConfig)=>{
-    const errors = [];
+  const validateField = (value, fieldConfig) => {
+    const fieldErrors = [];
     const fieldValue = value.trim();
+    let isValid = true;
 
-    fieldConfig.validation.forEach(({rule, message, value, matchField})=>{
-      if(rule === "required" && !fieldValue){
-        errors.push(message);
-      } else if(rule === "minLength" && fieldValue && fieldValue.length < value){
-        errors.push(message);
-      } else if(rule === "maxLength" && fieldValue && fieldValue.length > value){
-        errors.push(message);
-      } else if(rule === "pattern" && fieldValue && !value.test(fieldValue)){
-        errors.push(message);
-      } else if(rule === "matchField" && fieldValue !== formData[matchField]){
-        errors.push(message)
+    fieldConfig.validation.forEach(({ rule, message, value }) => {
+      if (rule === "required" && !fieldValue) {
+        fieldErrors.push(message);
+        isValid = false
+      } else if (
+        rule === "minLength" &&
+        fieldValue &&
+        fieldValue.length < value
+      ) {
+        fieldErrors.push(message);
+        isValid = false
+      } else if (
+        rule === "maxLength" &&
+        fieldValue &&
+        fieldValue.length > value
+      ) {
+        fieldErrors.push(message);
+        isValid = false
+      } else if (rule === "pattern" && fieldValue && !value.test(fieldValue)) {
+        fieldErrors.push(message);
+        isValid = false
+      } else if (rule === "match" && fieldValue !== formData[value]) {
+        fieldErrors.push(message);
+        isValid = false
       }
-    })
-    return errors[0] || ""
-  }
+    });
+    console.log(fieldErrors);
+    return {error: fieldErrors[0] || "", isValid}
+  };
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -38,20 +54,15 @@ const SignupTab = () => {
       return { ...prev, [name]: value };
     });
     // real time validation
-    const fieldConfig = authModalConfig.signup.fields.find((field)=>field.name === name);
-    if(fieldConfig){
-      const error = validateField(name, value, fieldConfig);
-      setErrors((prev)=> ({...prev, [name]: error}))
+    const fieldConfig = authModalConfig.signup.fields.find(
+      (field) => field.name === name
+    );
+    if (fieldConfig) {
+      const {error, isValid} = validateField(value, fieldConfig);
+      setErrors((prev) => ({ ...prev, [name]: error }));
+      setValidFields((prev)=> ({...prev, [name]: isValid}))
     }
   };
-
-  // const getErrorMessage = (fieldName) => {
-  //   const formattedFieldError =
-  //     fieldName !== "confirmPassword"
-  //       ? fieldName.charAt(0).toUpperCase() + fieldName.slice(1) // capital first letter
-  //       : "Confirm Password";
-  //   return `${formattedFieldError} field is required`;
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,29 +73,28 @@ const SignupTab = () => {
     }
 
     authModalConfig.signup.fields.forEach((field) => {
-      const error = validateField(formData[field.name], field);
-      if(error){
+      const {error} = validateField(formData[field.name], field);
+      if (error) {
         newErrors[field.name] = error;
       }
     });
     setErrors(newErrors);
 
-    // proceed if no validation errors 
-    if(Object.keys(newErrors).length === 0){
+    // proceed if no validation errors
+    if (Object.keys(newErrors).length === 0) {
       // firebase
-      console.log("SignupTab", formData)
+      console.log("SignupTab", formData);
     }
   };
 
-
-  useEffect(()=>{
-    if(Object.keys(errors).length > 0){
-      const timeOutId = setTimeout(()=>{
-        setErrors({})
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      const timeOutId = setTimeout(() => {
+        setErrors({});
       }, 3000);
-      return ()=> clearTimeout(timeOutId);
+      return () => clearTimeout(timeOutId);
     }
-  }, [errors])
+  }, [errors]);
 
   return (
     <div className="w-full">
@@ -110,16 +120,18 @@ const SignupTab = () => {
                 onChange={handleInput}
                 placeholder={field.placeholder}
                 required={field.required}
-                className={`block w-full mx-auto h-10 border rounded-md p-2 ${errors[field.name] ? "border-red-400" : "border-glacier-1100"} bg-glacier-200 focus:outline-glacier-1100`}
+                className={`block w-full mx-auto h-10 border rounded-md p-2 ${
+                  errors[field.name] ? "border-red-400" : "border-glacier-1100"
+                } bg-glacier-200 focus:outline-glacier-1100`}
               />
               {errors[field.name] ? (
-                <FaCircleExclamation className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-400"/>
-              ) : formData[field.name] && !errors[field.name] ? (
-                <FaCircleCheck className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-400"/>
-              ) : null}
+                <FaCircleExclamation className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-400" />
+              ) : (formData[field.name] && validFields[field.name] && (
+                <FaCircleCheck className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-400" />
+              ))}
             </div>
             {errors[field.name] && (
-              <p className="text-red-400 text-[12px] mt-[2px] tracking-wider ml-1">
+              <p className="text-red-400 text-[12px] mt-[2px] tracking-wider leading-3 ml-1">
                 {errors[field.name]}
               </p>
             )}
