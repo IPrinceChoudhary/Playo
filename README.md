@@ -31,6 +31,12 @@ Initializing:-
 - Added icons for empty input fields
 - Added timeout using useEffect on errors
 - Dynamically added validation message
+- Show/hide password icon
+- Created custom hooks to make code more readable, modular and reusable
+
+how am i making UX better:-
+- changing input field error on every input change
+- A show/hide password icon
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

@@ -2,6 +2,20 @@
 
 @import "tailwindcss";
 
+/* Override browser autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgb(241, 245, 249) inset !important;
+  box-shadow: 0 0 0 1000px rgb(241, 245, 249) inset !important;
+  -webkit-text-fill-color: #1f2937 !important;
+  background-color: rgb(241, 245, 249) !important;
+  border-radius: 0.375rem !important; /* Match rounded-md */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+  
+
 @theme {
   /* fonts */
   --font-monsterrat: "Monsterrat", sans-serif; 

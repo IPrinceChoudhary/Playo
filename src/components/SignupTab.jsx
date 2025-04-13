@@ -1,100 +1,36 @@
-import { useState, useEffect } from "react";
 import { authModalConfig } from "../config/authModalConfig";
 import AuthOptions from "./AuthOptions";
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
+import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
+import useForm from "../hooks/useForm";
+import useFormValidation from "../hooks/useFormValidation";
+import usePasswordVisibility from "../hooks/usePasswordVisibility";
+import useErrorTimeout from "../hooks/useErrorTimeout";
 
 const SignupTab = () => {
-  const [formData, setFormData] = useState({
+  const { formData, handleInput } = useForm({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({});
-  const [validFields, setValidFields] = useState({});
+  const { errors, validFields, validateOnChange, validateOnSubmit, clearErrors } =
+    useFormValidation(formData, authModalConfig.signup);
 
-  const validateField = (value, fieldConfig) => {
-    const fieldErrors = [];
-    const fieldValue = value.trim();
-    let isValid = true;
+  const {showPassword, togglePasswordVisibility} = usePasswordVisibility([
+    "password",
+    "confirmPassword"
+  ]);
 
-    fieldConfig.validation.forEach(({ rule, message, value }) => {
-      if (rule === "required" && !fieldValue) {
-        fieldErrors.push(message);
-        isValid = false
-      } else if (
-        rule === "minLength" &&
-        fieldValue &&
-        fieldValue.length < value
-      ) {
-        fieldErrors.push(message);
-        isValid = false
-      } else if (
-        rule === "maxLength" &&
-        fieldValue &&
-        fieldValue.length > value
-      ) {
-        fieldErrors.push(message);
-        isValid = false
-      } else if (rule === "pattern" && fieldValue && !value.test(fieldValue)) {
-        fieldErrors.push(message);
-        isValid = false
-      } else if (rule === "match" && fieldValue !== formData[value]) {
-        fieldErrors.push(message);
-        isValid = false
-      }
-    });
-    console.log(fieldErrors);
-    return {error: fieldErrors[0] || "", isValid}
-  };
-
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => {
-      return { ...prev, [name]: value };
-    });
-    // real time validation
-    const fieldConfig = authModalConfig.signup.fields.find(
-      (field) => field.name === name
-    );
-    if (fieldConfig) {
-      const {error, isValid} = validateField(value, fieldConfig);
-      setErrors((prev) => ({ ...prev, [name]: error }));
-      setValidFields((prev)=> ({...prev, [name]: isValid}))
-    }
-  };
+  useErrorTimeout(errors, clearErrors)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = {};
 
-    if (!authModalConfig?.signup?.fields) {
-      return;
-    }
-
-    authModalConfig.signup.fields.forEach((field) => {
-      const {error} = validateField(formData[field.name], field);
-      if (error) {
-        newErrors[field.name] = error;
-      }
-    });
-    setErrors(newErrors);
-
-    // proceed if no validation errors
-    if (Object.keys(newErrors).length === 0) {
-      // firebase
+    if (validateOnSubmit()) {
       console.log("SignupTab", formData);
     }
   };
-
-  useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      const timeOutId = setTimeout(() => {
-        setErrors({});
-      }, 3000);
-      return () => clearTimeout(timeOutId);
-    }
-  }, [errors]);
 
   return (
     <div className="w-full">
@@ -114,21 +50,47 @@ const SignupTab = () => {
             </label>
             <div className="relative w-full">
               <input
-                type={field.type}
+                type={
+                  field.type === "password" && showPassword[field.name]
+                    ? "text"
+                    : field.type
+                }
                 name={field.name}
                 value={formData[field.name] || ""}
-                onChange={handleInput}
+                onChange={(e) => {
+                  handleInput(e);
+                  validateOnChange(e.target.name, e.target.value);
+                }}
                 placeholder={field.placeholder}
                 required={field.required}
                 className={`block w-full mx-auto h-10 border rounded-md p-2 ${
                   errors[field.name] ? "border-red-400" : "border-glacier-1100"
                 } bg-glacier-200 focus:outline-glacier-1100`}
               />
+              {field.type === "password" ? (
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility(field.name)}
+                  className="absolute -right-6 top-1/2 transform -translate-y-1/2 text-fresh-1500 cursor-pointer"
+                  aria-label={
+                    showPassword[field.name] ? "Hide password" : "Show password"
+                  } // for screen readers
+                >
+                  {showPassword[field.name] ? (
+                    <PiEyeClosedBold className="h-5 w-5" />
+                  ) : (
+                    <PiEyeBold className="h-5 w-5" />
+                  )}
+                </button>
+              ) : null}
               {errors[field.name] ? (
                 <FaCircleExclamation className="absolute right-2 top-1/2 transform -translate-y-1/2 text-red-400" />
-              ) : (formData[field.name] && validFields[field.name] && (
-                <FaCircleCheck className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-400" />
-              ))}
+              ) : (
+                formData[field.name] &&
+                validFields[field.name] && (
+                  <FaCircleCheck className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-400" />
+                )
+              )}
             </div>
             {errors[field.name] && (
               <p className="text-red-400 text-[12px] mt-[2px] tracking-wider leading-3 ml-1">
