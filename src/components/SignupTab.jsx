@@ -43,8 +43,8 @@ const SignupTab = () => {
         noValidate
         id="signup-form"
       >
-        {authModalConfig.signup.fields.map((field) => (
-          <div key={field.name} className="mb-7 w-full h-12">
+        {authModalConfig?.signup?.fields?.map((field) => (
+          <div key={field.name} className="mb-6 w-full h-12">
             <label htmlFor={field.name} className="sr-only">
               {field.placeholder}
             </label>
@@ -101,7 +101,7 @@ const SignupTab = () => {
         ))}
         <button
           type="submit"
-          className="border font-bold text-[1rem] w-35 py-2 m-auto flex justify-center items-center cursor-pointer"
+          className="border-2 border-fresh-1600 text-fresh-1600 font-bold text-[1rem] px-5 py-2 m-auto flex justify-center items-center cursor-pointer rounded-md hover:bg-glacier-1100 transition"
         >
           Create Account
         </button>

@@ -6,7 +6,7 @@ const useFormValidation = (formData, config) => {
 
   const validateField = (value, fieldConfig) => {
     const fieldErrors = [];
-    const fieldValue = value.trim();
+    const fieldValue = value?.trim();
     let isValid = true;
 
     fieldConfig.validation.forEach(({ rule, message, value }) => {

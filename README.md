@@ -32,7 +32,10 @@ Initializing:-
 - Added timeout using useEffect on errors
 - Dynamically added validation message
 - Show/hide password icon
-- Created custom hooks to make code more readable, modular and reusable
+- Created custom hooks to make code more readable, modular and reusable.
+- Did same for signin
+- Styling rest of it
+- Created tooltip for rest login options
 
 how am i making UX better:-
 - changing input field error on every input change

@@ -10,7 +10,7 @@ const AuthModal = ({ onclose, authMode, setAuthMode }) => {
         className="h-8 w-8 absolute -right-3 -top-3 rounded-full flex justify-center items-center cursor-pointer bg-fresh-500 hover:bg-fresh-1500"
         onClick={() => onclose(false)}
       >
-        <RxCross2 className="h-full w-full text-glacier-200" />
+        <RxCross2 className="h-full w-full text-glacier-200 bg-fresh-1600 rounded-full hover:bg-fresh-1500 transition-all" />
       </button>
 
       {/* tabs */}
