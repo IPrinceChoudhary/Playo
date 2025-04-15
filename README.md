@@ -36,10 +36,18 @@ Initializing:-
 - Did same for signin
 - Styling rest of it
 - Created tooltip for rest login options
+- firebase config file and setup. adding to .gitignore as well
+- firebase in signup page with error handling.
+
+how am i making UI better:-
 
 how am i making UX better:-
 - changing input field error on every input change
 - A show/hide password icon
+
+how am i making SEO better:-
+
+how am i writing code better:- 
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

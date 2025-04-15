@@ -6,9 +6,12 @@ import useForm from "../hooks/useForm";
 import useFormValidation from "../hooks/useFormValidation";
 import usePasswordVisibility from "../hooks/usePasswordVisibility";
 import useErrorTimeout from "../hooks/useErrorTimeout";
+import { auth } from "../firebase/config";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { useState } from "react";
 
 const SignupTab = () => {
-  const { formData, handleInput } = useForm({
+  const { formData, handleInput, setFormData } = useForm({
     name: "",
     email: "",
     password: "",
@@ -22,13 +25,37 @@ const SignupTab = () => {
     "confirmPassword"
   ]);
 
-  useErrorTimeout(errors, clearErrors)
+  useErrorTimeout(errors, clearErrors);
 
-  const handleSubmit = (e) => {
+  const [authStatus, setAuthStatus] = useState({message: "", isError: false});
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateOnSubmit()) {
-      console.log("SignupTab", formData);
+      try {
+        const userCredentials = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        console.log(userCredentials)
+        await sendEmailVerification(userCredentials.user)
+        setAuthStatus({message: "Account Created Successfully!", isError: false})
+        setFormData({name: "", email: "", password: "", confirmPassword: ""})
+      } catch (error) {
+        let errorMessage = "Failed to create account. Please try again."
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            errorMessage = "This email is already registered.";
+            break;
+          case "auth/invalid-email":
+            errorMessage = "Invalid email address.";
+            break;
+          case "auth/weak-password":
+            errorMessage = "Password is too weak. Use at least 6 characters.";
+            break;
+          default:
+            console.error("Firebase error:", error);
+        }
+        setAuthStatus({ message: errorMessage, isError: true });
+      }
     }
   };
 
@@ -37,6 +64,15 @@ const SignupTab = () => {
       <h2 className="text-center font-monsterrat text-2xl font-bold mt-8 text-fresh-1500">
         Create an account with Playo
       </h2>
+      {authStatus.message && (
+        <p
+          className={`text-center mt-4 ${
+            authStatus.isError ? "text-red-400" : "text-green-400"
+          }`}
+        >
+          {authStatus.message}
+        </p>
+      )}
       <form
         className="mt-6 w-100 mx-auto"
         onSubmit={handleSubmit}
