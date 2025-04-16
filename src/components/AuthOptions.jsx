@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { HiUserCircle } from "react-icons/hi2";
+import { FaGithub } from "react-icons/fa";
 
 const AuthOptions = () => {
   const [tooltip, setToolTip] = useState(null);
@@ -31,17 +31,17 @@ const AuthOptions = () => {
           </div>
         )}
         <button
-          onMouseEnter={() => showToolTip("guest")}
+          onMouseEnter={() => showToolTip("github")}
           onMouseLeave={hideToolTip}
-          aria-label="Sign in with Guest Account"
+          aria-label="Sign in with Github Account"
           className="w-12 h-12 cursor-pointer p-1 border border-black rounded-full bg-glacier-900 hover:bg-glacier-1100 transition-all"
         >
-          <HiUserCircle className="w-full h-full" />
+          <FaGithub className="w-full h-full" />
         </button>
-        {tooltip === "guest" && (
+        {tooltip === "github" && (
           <div className="absolute z-10 bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2">
             <div className="bg-gray-800 text-white text-sm px-2 py-1 rounded-md w-50 text-center">
-              Sign in with Guest Account
+              Sign in with Github Account
             </div>
           </div>
         )}

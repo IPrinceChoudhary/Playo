@@ -24,7 +24,7 @@ Initializing:-
 - created 2 separate components for both tabs
 - created config for Auth modal (config driven UI)(DRY)
 - mapping input fields with unique key and optional chaining
-- AuthOptions page(account with google and guest account)
+- AuthOptions page(account with google and github account)
 - Signup - creating one state(initial value an object) for multiple form inputs(controlled inputs by react)
 - Abstract the logic of empty field error in the helper function
 - Added invisible label tag for SEO and better accessibility(screen reader only(sr-only className in t.css))
@@ -38,16 +38,22 @@ Initializing:-
 - Created tooltip for rest login options
 - firebase config file and setup. adding to .gitignore as well
 - firebase in signup page with error handling.
+- Created Email Verification Modal after filling up the signup form and added two buttons(resend link and start again).
 
 how am i making UI better:-
+- consistent same color theme
 
 how am i making UX better:-
 - changing input field error on every input change
 - A show/hide password icon
 
 how am i making SEO better:-
+- label tags for screen reader only with input so screen reader can understand what is this input for
+- aria-label tag for buttons(icons or not descriptive)
 
 how am i writing code better:- 
+- using custom hooks
+config driven UI
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

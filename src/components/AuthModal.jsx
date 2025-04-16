@@ -16,13 +16,13 @@ const AuthModal = ({ onclose, authMode, setAuthMode }) => {
       {/* tabs */}
       <div className="flex h-10 gap-1">
         <button
-          className={`w-1/2 border border-fresh-1600 rounded-bl-xl rounded-tr-xl cursor-pointer ${authMode === "signin" ? "bg-fresh-300" : "bg-glacier-200"}`}
+          className={`font-bold text-lg w-1/2 border border-fresh-1600 rounded-bl-xl rounded-tr-xl cursor-pointer ${authMode === "signin" ? "bg-fresh-300" : "bg-glacier-200"}`}
           onClick={() => setAuthMode("signin")}
         >
           Sign In
         </button>
         <button
-          className={`w-1/2 border border-fresh-1600 rounded-tl-xl rounded-br-xl cursor-pointer ${authMode !== "signin" ? "bg-fresh-300" : "bg-glacier-200"}`}
+          className={`font-bold text-lg w-1/2 border border-fresh-1600 rounded-tl-xl rounded-br-xl cursor-pointer ${authMode !== "signin" ? "bg-fresh-300" : "bg-glacier-200"}`}
           onClick={() => setAuthMode("signup")}
         >
           Sign Up
