@@ -34,9 +34,9 @@ const sharedFields = {
       },
       {
         rule: "pattern",
-        value: /^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/,
+        value: /^(?!.*\s)(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$/,
         message:
-          "Password must contain at least one capital letter and one special character",
+          "Password must contain at least one capital letter, one special character and no spaces",
       },
     ],
   },

@@ -37,8 +37,10 @@ Initializing:-
 - Styling rest of it
 - Created tooltip for rest login options
 - firebase config file and setup. adding to .gitignore as well
-- firebase in signup page with error handling.
 - Created Email Verification Modal after filling up the signup form and added two buttons(resend link and start again).
+- Used firebase functions to create user and send verification email.
+- stored formData temporarily in localStorage to first verify the email.
+- created two states to handle success and error messages for user created and verification email sent.
 
 how am i making UI better:-
 - consistent same color theme

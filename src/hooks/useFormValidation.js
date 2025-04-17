@@ -35,7 +35,6 @@ const useFormValidation = (formData, config) => {
         isValid = false;
       }
     });
-    console.log(fieldErrors);
     return { error: fieldErrors[0] || "", isValid };
   };
 

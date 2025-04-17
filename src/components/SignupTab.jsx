@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { authModalConfig } from "../config/authModalConfig";
 import AuthOptions from "./AuthOptions";
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
@@ -6,9 +7,8 @@ import useForm from "../hooks/useForm";
 import useFormValidation from "../hooks/useFormValidation";
 import usePasswordVisibility from "../hooks/usePasswordVisibility";
 import useErrorTimeout from "../hooks/useErrorTimeout";
-// import { auth } from "../firebase/config";
-// import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { useState } from "react";
+import { auth } from "../firebase/config";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import EmailVerificationModal from "./EmailVerificationModal";
 
 const SignupTab = () => {
@@ -29,6 +29,7 @@ const SignupTab = () => {
   useErrorTimeout(errors, clearErrors);
 
   const [authStatus, setAuthStatus] = useState({message: "", isError: false});
+  const [emailVerificationModalStatus, setEmailVerificationModalStatus] = useState({message: "", isError: false});
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
 
@@ -36,20 +37,57 @@ const SignupTab = () => {
     e.preventDefault();
 
     if (validateOnSubmit()) {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+      auth, formData.email, formData.password
+      );
+      console.log(userCredentials);
+      await sendEmailVerification(userCredentials.user);
+      localStorage.setItem("pendingUserData", JSON.stringify(formData));
       setSubmittedEmail(formData.email);
-      setShowVerificationModal(true);
+      setShowVerificationModal(true)
+    } catch (error) {
+      let errorMessage = "Failed to send verification email. Please try again."
+      if(error.code === "auth/email-already-in-use"){
+        errorMessage = "This email is already registered.";
+      }
+      if(error.code === "auth/invalid-email"){
+        errorMessage = "Invalid email address."
+      }
+      else{
+        console.error("Firebase error:", error);
+      }
+      setAuthStatus({ message: errorMessage, isError: true });
     }
-  };
+  }
+  }
 
-  const handleResend = () => {
-    // Placeholder for resending email (next step)
-    console.log("Resend link clicked");
+  const handleResend = async () => {
+    try {
+      const user = auth.currentUser;
+      if(user){
+        await sendEmailVerification(user);
+        setEmailVerificationModalStatus({ message: "Verification email resent.", isError: false });
+      } else {
+        setEmailVerificationModalStatus({
+          message: "No user found. Please start over.",
+          isError: true,
+        })
+    }} catch (error) {
+      setEmailVerificationModalStatus({
+        message: "Failed to resend email. Please try again.",
+        isError: true,
+      });
+      console.error("Resend error:", error);
+    }
   };
 
   const handleStartOver = () => {
     setShowVerificationModal(false);
     setFormData({name: "", email: "", password: "", confirmPassword: ""});
-    setAuthStatus({message: "", isError: false})
+    setAuthStatus({message: "", isError: false});
+    setEmailVerificationModalStatus({message: "", isError: false})
+    localStorage.removeItem("pendingUserData");
   }
 
   return (
@@ -131,6 +169,8 @@ const SignupTab = () => {
           email={submittedEmail}
           onResend={handleResend}
           onStartOver={handleStartOver}
+          emailVerificationModalStatus={emailVerificationModalStatus}
+          setEmailVerificationModalStatus={setEmailVerificationModalStatus}
         />
       )}
       <div>
