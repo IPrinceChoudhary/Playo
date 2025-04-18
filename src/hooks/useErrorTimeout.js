@@ -1,14 +1,27 @@
 import { useEffect } from "react";
 
-const useErrorTimeout = (errors, clearErrors, timeout = 3000) => {
+const useErrorTimeout = (statusOrErrors, clearStatusOrErrors, timeout = 3000) => {
   useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      const timeoutId = setTimeout(() => {
-        clearErrors();
+    let timeoutId;
+
+    if(statusOrErrors && typeof statusOrErrors === "object"){
+
+    // Handle single status object (e.g., authStatus, emailVerificationModalStatus)
+      if("message" in statusOrErrors && statusOrErrors.message){
+        timeoutId = setTimeout(()=>{
+          clearStatusOrErrors({message: "", isError: false});
+        }, timeout)
+      }
+    }
+
+    // Handle object-based errors (e.g., validation errors)
+    else if (Object.keys(statusOrErrors).length > 0) {
+      timeoutId = setTimeout(() => {
+        clearStatusOrErrors();
       }, timeout);
       return () => clearTimeout(timeoutId);
     }
-  }, [errors, clearErrors, timeout]);
+  }, [statusOrErrors, clearStatusOrErrors, timeout]);
 };
 
 export default useErrorTimeout;

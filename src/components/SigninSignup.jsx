@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AuthModal from "./AuthModal";
+import SigninSignupModal from "./SigninSignupModal";
 
 const SigninSignup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +26,7 @@ const SigninSignup = () => {
       </button>
 
       {isModalOpen && (
-        <AuthModal
+        <SigninSignupModal
           authMode={authMode}
           setAuthMode={setAuthMode}
           onclose={setIsModalOpen}

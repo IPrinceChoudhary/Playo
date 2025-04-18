@@ -41,6 +41,8 @@ Initializing:-
 - Used firebase functions to create user and send verification email.
 - stored formData temporarily in localStorage to first verify the email.
 - created two states to handle success and error messages for user created and verification email sent.
+- bg blur on signup-signin and email verification modal
+- 3 second timeout on success or error message on resend email and form submission(reusing custom hook).
 
 how am i making UI better:-
 - consistent same color theme
