@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authModalConfig } from "../config/authModalConfig";
 import AuthOptions from "./AuthOptions";
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
@@ -9,18 +9,17 @@ import usePasswordVisibility from "../hooks/usePasswordVisibility";
 import useErrorTimeout from "../hooks/useErrorTimeout";
 import { auth } from "../firebase/config";
 import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
+  createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 import EmailVerificationModal from "./EmailVerificationModal";
 
 const SignupTab = () => {
-
+  
   const [authStatus, setAuthStatus] = useState({ message: "", isError: false });
   const [emailVerificationModalStatus, setEmailVerificationModalStatus] =
-    useState({ message: "", isError: false });
+  useState({ message: "", isError: false });
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
+  const [isAuthMessageVisible, setIsAuthMessageVisible] = useState(false); // animation
 
   //custom hooks
   const { formData, handleInput, setFormData } = useForm({
@@ -110,6 +109,15 @@ const SignupTab = () => {
     setEmailVerificationModalStatus({ message: "", isError: false });
     localStorage.removeItem("pendingUserData");
   };
+
+  useEffect(()=>{
+    if(auth.message){
+      setIsAuthMessageVisible(true);
+    }
+    else{
+      setIsAuthMessageVisible(false)
+    }
+  }, [authStatus.message])
 
   return (
     <>
@@ -202,9 +210,12 @@ const SignupTab = () => {
         <div>
           <AuthOptions />
         </div>
-      </div>
       {authStatus.message && (
-      <div className="absolute flex items-center -bottom-0 -right-85 bg-glacier-500 p-3 text-fresh-500 text-xl font-bold rounded-md">
+      <div className={`fixed bottom-4 right-4 z-50 flex items-center bg-glacier-500 p-3 text-fresh-500 text-xl font-bold rounded-md transition-all duration-300 ease-in-out will-change-transform ${
+          isAuthMessageVisible
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-full invisible"
+        }`}>
           {authStatus.isError ? (
             <p className="text-red-400">
               <FaCircleExclamation />
@@ -223,6 +234,7 @@ const SignupTab = () => {
           </p>
       </div>
         )}
+      </div>
     </>
   );
 };

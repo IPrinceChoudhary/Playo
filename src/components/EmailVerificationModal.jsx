@@ -1,5 +1,6 @@
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 import useErrorTimeout from "../hooks/useErrorTimeout";
+import { useEffect, useState } from "react";
 
 const EmailVerificationModal = ({
   email,
@@ -8,7 +9,17 @@ const EmailVerificationModal = ({
   emailVerificationModalStatus,
   setEmailVerificationModalStatus,
 }) => {
-  useErrorTimeout(emailVerificationModalStatus, setEmailVerificationModalStatus)
+  const [isEmailVerificationMessageVisible, setIsEmailVerificationVisible] = useState(false); // animation
+  useErrorTimeout(emailVerificationModalStatus,setEmailVerificationModalStatus);
+
+  useEffect(() => {
+    if (emailVerificationModalStatus.message) {
+      setIsEmailVerificationVisible(true);
+    } else {
+      setIsEmailVerificationVisible(false);
+    }
+  }, [emailVerificationModalStatus.message]);
+
   return (
     <>
       <div className="fixed -inset-x-80 -inset-y-3 bg-gray-500/50 backdrop-blur-md flex items-center justify-center z-50">
@@ -38,7 +49,13 @@ const EmailVerificationModal = ({
           </div>
         </div>
         {emailVerificationModalStatus.message && (
-          <div className="absolute flex items-center bottom-8 right-8 bg-glacier-500 p-3 text-fresh-500 text-xl font-bold rounded-md">
+          <div
+            className={`absolute flex items-center bottom-8 right-8 bg-glacier-500 p-3 text-fresh-500 text-xl font-bold rounded-md transition-transform duration-300 ease-in-out ${
+              isEmailVerificationMessageVisible
+                ? "translate-x-8"
+                : "translate-x-full"
+            }`}
+          >
             {emailVerificationModalStatus.isError ? (
               <p className="text-red-400">
                 <FaCircleExclamation />
