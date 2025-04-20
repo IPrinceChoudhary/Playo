@@ -111,18 +111,21 @@ const SignupTab = () => {
   };
 
   useEffect(()=>{
-    if(auth.message){
+    if(authStatus.message){
       setIsAuthMessageVisible(true);
     }
     else{
       setIsAuthMessageVisible(false)
     }
+    return () => {
+      setIsAuthMessageVisible(false);
+    };
   }, [authStatus.message])
 
   return (
     <>
       <div className="w-full h-full flex flex-col justify-center relative">
-        <h2 className="text-center font-monsterrat text-2xl font-bold text-fresh-1500">
+        <h2 className="text-center font-montserrat text-2xl font-bold text-fresh-1500">
           Create an account with Playo
         </h2>
         <form
@@ -211,11 +214,9 @@ const SignupTab = () => {
           <AuthOptions />
         </div>
       {authStatus.message && (
-      <div className={`fixed bottom-4 right-4 z-50 flex items-center bg-glacier-500 p-3 text-fresh-500 text-xl font-bold rounded-md transition-all duration-300 ease-in-out will-change-transform ${
-          isAuthMessageVisible
-            ? "opacity-100 translate-x-0"
-            : "opacity-0 translate-x-full invisible"
-        }`}>
+      <div className={`absolute flex items-center bottom-3 -right-85 bg-glacier-500 p-2 text-fresh-500 text-xl font-bold rounded-md transition-transform duration-300 ease-in-out ${
+              isAuthMessageVisible ? "translate-x-0" : "translate-x-full"
+            }`}>
           {authStatus.isError ? (
             <p className="text-red-400">
               <FaCircleExclamation />

@@ -18,13 +18,16 @@ const EmailVerificationModal = ({
     } else {
       setIsEmailVerificationVisible(false);
     }
+    return ()=>{
+      setIsEmailVerificationVisible(false)
+    }
   }, [emailVerificationModalStatus.message]);
 
   return (
     <>
       <div className="fixed -inset-x-80 -inset-y-3 bg-gray-500/50 backdrop-blur-md flex items-center justify-center z-50">
         <div className="bg-glacier-500 rounded-lg p-6 w-full max-w-md mx-4">
-          <h2 className="text-center font-monsterrat text-2xl font-bold text-fresh-1500">
+          <h2 className="text-center font-montserrat text-2xl font-bold text-fresh-1500">
             Verify Your Email
           </h2>
           <p className="text-center mt-4 text-gray-800">
@@ -50,10 +53,8 @@ const EmailVerificationModal = ({
         </div>
         {emailVerificationModalStatus.message && (
           <div
-            className={`absolute flex items-center bottom-8 right-8 bg-glacier-500 p-3 text-fresh-500 text-xl font-bold rounded-md transition-transform duration-300 ease-in-out ${
-              isEmailVerificationMessageVisible
-                ? "translate-x-8"
-                : "translate-x-full"
+            className={`absolute flex items-center bottom-3 right-3 bg-glacier-500 p-2 text-fresh-500 text-xl font-bold rounded-md transition-transform duration-300 ease-in-out ${
+              isEmailVerificationMessageVisible ? "translate-x-0" : "translate-x-full"
             }`}
           >
             {emailVerificationModalStatus.isError ? (

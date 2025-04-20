@@ -43,6 +43,7 @@ Initializing:-
 - created two states to handle success and error messages for user created and verification email sent.
 - bg blur on signup-signin and email verification modal
 - 3 second timeout on success or error message on resend email and form submission(reusing custom hook).
+- added animation to the success or error message on resend email and form submission and minor bug related to font fixed.
 
 how am i making UI better:-
 - consistent same color theme

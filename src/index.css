@@ -2,6 +2,10 @@
 
 @import "tailwindcss";
 
+body {
+  overflow-x: hidden;
+}
+
 /* Override browser autofill styles */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -18,7 +22,7 @@ input:-webkit-autofill:active {
 
 @theme {
   /* fonts */
-  --font-monsterrat: "Monsterrat", sans-serif; 
+  --font-montserrat: "Montserrat", sans-serif; 
   --font-lato: "Lato", sans-serif;
 
   /* color themes */
