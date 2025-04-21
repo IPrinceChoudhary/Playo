@@ -44,6 +44,7 @@ Initializing:-
 - bg blur on signup-signin and email verification modal
 - 3 second timeout on success or error message on resend email and form submission(reusing custom hook).
 - added animation to the success or error message on resend email and form submission and minor bug related to font fixed.
+- added spinner on creating an account and disabled the button to prevent multiple submit.
 
 how am i making UI better:-
 - consistent same color theme
@@ -51,14 +52,16 @@ how am i making UI better:-
 how am i making UX better:-
 - changing input field error on every input change
 - A show/hide password icon
+- disable button and adding spinner 
 
 how am i making SEO better:-
 - label tags for screen reader only with input so screen reader can understand what is this input for
 - aria-label tag for buttons(icons or not descriptive)
 
 how am i writing code better:- 
+- proper folder structure
 - using custom hooks
-config driven UI
+- config driven UI
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

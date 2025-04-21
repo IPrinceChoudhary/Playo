@@ -11,6 +11,7 @@ import { auth } from "../firebase/config";
 import {
   createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 import EmailVerificationModal from "./EmailVerificationModal";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const SignupTab = () => {
   
@@ -20,6 +21,7 @@ const SignupTab = () => {
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
   const [isAuthMessageVisible, setIsAuthMessageVisible] = useState(false); // animation
+  const [showSpinner, setShowSpinner] = useState(false)
 
   //custom hooks
   const { formData, handleInput, setFormData } = useForm({
@@ -47,7 +49,7 @@ const SignupTab = () => {
   // logic functions
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setShowSpinner(true)
     if (validateOnSubmit()) {
       try {
         const userCredentials = await createUserWithEmailAndPassword(
@@ -57,6 +59,7 @@ const SignupTab = () => {
         );
         console.log(userCredentials);
         await sendEmailVerification(userCredentials.user);
+        setShowSpinner(false)
         localStorage.setItem("pendingUserData", JSON.stringify(formData));
         setSubmittedEmail(formData.email);
         setShowVerificationModal(true);
@@ -72,8 +75,8 @@ const SignupTab = () => {
           errorMessage =
             error.message || "An unexpected error occurred. Please try again.";
         }
-
         setAuthStatus({ message: errorMessage, isError: true });
+        setShowSpinner(false)
       }
     }
   };
@@ -95,7 +98,7 @@ const SignupTab = () => {
       }
     } catch (error) {
       setEmailVerificationModalStatus({
-        message: "Failed to resend email. Please try again.",
+        message: "Too many requests. Please try again later.",
         isError: true,
       });
       console.error("Resend error:", error);
@@ -196,9 +199,11 @@ const SignupTab = () => {
           ))}
           <button
             type="submit"
-            className="border-2 border-fresh-1600 text-fresh-1600 font-bold text-[1rem] px-5 py-2 m-auto flex justify-center items-center cursor-pointer rounded-md hover:bg-glacier-1100 transition"
+            disabled={showSpinner}
+            className={`border-2 border-fresh-1600 text-fresh-1600 font-bold text-[1rem] px-5 py-2 m-auto flex justify-center items-center cursor-pointer rounded-md hover:bg-glacier-1100 transition gap-2 ${showSpinner && "disabled:bg-gray-400 disabled:cursor-not-allowed"}`}
           >
-            Create Account
+            Create Account {(showSpinner && Object.keys(errors).length === 0) && <ClipLoader size={20} aria-label="Loading Spinner"
+        data-testid="loader"/>}
           </button>
         </form>
         {showVerificationModal && (
