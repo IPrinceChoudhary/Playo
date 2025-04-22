@@ -45,6 +45,8 @@ Initializing:-
 - 3 second timeout on success or error message on resend email and form submission(reusing custom hook).
 - added animation to the success or error message on resend email and form submission and minor bug related to font fixed.
 - added spinner on creating an account and disabled the button to prevent multiple submit.
+- structured the folder for components separately(first for signin-signup).
+- made code more modular, readable and reusable.
 
 how am i making UI better:-
 - consistent same color theme

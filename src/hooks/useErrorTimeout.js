@@ -12,15 +12,15 @@ const useErrorTimeout = (statusOrErrors, clearStatusOrErrors, timeout = 3000) =>
           clearStatusOrErrors({message: "", isError: false});
         }, timeout)
       }
+      // Handle object-based errors (e.g., validation errors)
+      else if (Object.keys(statusOrErrors).length > 0) {
+        timeoutId = setTimeout(() => {
+          clearStatusOrErrors();
+        }, timeout);
+      }
     }
+    return () => clearTimeout(timeoutId);
 
-    // Handle object-based errors (e.g., validation errors)
-    else if (Object.keys(statusOrErrors).length > 0) {
-      timeoutId = setTimeout(() => {
-        clearStatusOrErrors();
-      }, timeout);
-      return () => clearTimeout(timeoutId);
-    }
   }, [statusOrErrors, clearStatusOrErrors, timeout]);
 };
 

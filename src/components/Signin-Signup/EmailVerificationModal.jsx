@@ -1,5 +1,5 @@
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
-import useErrorTimeout from "../hooks/useErrorTimeout";
+import useErrorTimeout from "../../hooks/useErrorTimeout";
 import { useEffect, useState } from "react";
 
 const EmailVerificationModal = ({
