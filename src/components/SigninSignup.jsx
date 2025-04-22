@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SigninSignupModal from "./SigninSignupModal";
+import SigninSignupModal from "./Signin-Signup/SigninSignupModal";
 
 const SigninSignup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

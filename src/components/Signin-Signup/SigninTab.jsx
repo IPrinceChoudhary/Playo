@@ -1,9 +1,9 @@
-import { authModalConfig } from "../config/authModalConfig";
+import { authModalConfig } from "../../config/authModalConfig";
 import AuthOptions from "./AuthOptions";
-import useForm from "../hooks/useForm";
-import useFormValidation from "../hooks/useFormValidation";
-import useErrorTimeout from "../hooks/useErrorTimeout";
-import usePasswordVisibility from "../hooks/usePasswordVisibility";
+import useForm from "../../hooks/useForm";
+import useFormValidation from "../../hooks/useFormValidation";
+import useErrorTimeout from "../../hooks/useErrorTimeout";
+import usePasswordVisibility from "../../hooks/usePasswordVisibility";
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 import { PiEyeClosedBold, PiEyeBold } from "react-icons/pi";
 

@@ -1,5 +1,5 @@
 import { FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
-import useErrorTimeout from "../hooks/useErrorTimeout";
+import useErrorTimeout from "../../hooks/useErrorTimeout";
 import { useEffect, useState } from "react";
 
 const EmailVerificationModal = ({
@@ -24,7 +24,6 @@ const EmailVerificationModal = ({
   }, [emailVerificationModalStatus.message]);
 
   return (
-    <>
       <div className="fixed -inset-x-80 -inset-y-3 bg-gray-500/50 backdrop-blur-md flex items-center justify-center z-50">
         <div className="bg-glacier-500 rounded-lg p-6 w-full max-w-md mx-4">
           <h2 className="text-center font-montserrat text-2xl font-bold text-fresh-1500">
@@ -78,7 +77,6 @@ const EmailVerificationModal = ({
           </div>
         )}
       </div>
-    </>
   );
 };
 export default EmailVerificationModal;
