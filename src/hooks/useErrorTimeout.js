@@ -16,6 +16,7 @@ const useErrorTimeout = (statusOrErrors, clearStatusOrErrors, timeout = 3000) =>
       else if (Object.keys(statusOrErrors).length > 0) {
         timeoutId = setTimeout(() => {
           clearStatusOrErrors({});
+
         }, timeout);
       }
     }

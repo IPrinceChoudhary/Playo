@@ -47,7 +47,6 @@ const SignupTab = () => {
 
   useErrorTimeout(errors, clearErrors);
   useErrorTimeout(authStatus, setAuthStatus);
-  console.log(authStatus)
 
   // logic functions
   const handleSubmit = async (e) => {
