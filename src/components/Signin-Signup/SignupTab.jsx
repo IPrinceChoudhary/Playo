@@ -30,7 +30,7 @@ const SignupTab = () => {
     clearErrors,
   } = useFormValidation(formData, authModalConfig.signup);
 
-  const { showPassword, togglePasswordVisibility } = usePasswordVisibility([
+  const { showPassword, togglePasswordVisibility, setShowPassword, initialState } = usePasswordVisibility([
     "password",
     "confirmPassword",
   ]);
@@ -67,6 +67,7 @@ const SignupTab = () => {
     setFormData({ name: "", email: "", password: "", confirmPassword: "" });
     setAuthStatus({ message: "", isError: false });
     setEmailVerificationModalStatus({ message: "", isError: false });
+    setShowPassword(initialState);
     localStorage.removeItem("pendingUserData");
   };
 

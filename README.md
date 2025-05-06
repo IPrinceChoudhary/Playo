@@ -57,13 +57,18 @@ how am i making UX better:-
 - disable button and adding spinner 
 
 how am i making SEO better:-
+- HTML5 semantic tags
 - label tags for screen reader only with input so screen reader can understand what is this input for
 - aria-label tag for buttons(icons or not descriptive)
 
 how am i writing code better:- 
 - proper folder structure
-- using custom hooks
+- using custom hooks to make code modular, manageable, reusable and readable
 - config driven UI
+- DRY concept
+
+bugs need to be fix:-
+- animation not working correctly for AuthStatusMessage
 
 ## 🚀 Features
 - **Video Player**: Play/pause, volume control, fullscreen, subtitles.

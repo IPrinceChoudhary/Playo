@@ -37,8 +37,8 @@ const SigninTab = () => {
   };
 
   return (
-    <div className="w-full">
-      <h2 className="text-center font-montserrat text-2xl font-bold mt-8 text-fresh-1500">
+    <div className="w-full h-full flex flex-col justify-center relative">
+      <h2 className="text-center font-montserrat text-2xl font-bold text-fresh-1500">
         Sign in if you have a Playo account
       </h2>
       <form

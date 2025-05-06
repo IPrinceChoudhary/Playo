@@ -6,13 +6,13 @@ const usePasswordVisibility = (fields) => {
     acc[field] = false;
     return acc;
   }, {});
-  
+
   const [showPassword, setShowPassword] = useState(initialState);
   
   const togglePasswordVisibility = (fieldName) => {
     setShowPassword((prev) => ({ ...prev, [fieldName]: !prev[fieldName] }));
   };
   
-  return { showPassword, togglePasswordVisibility };
+  return { showPassword, togglePasswordVisibility, setShowPassword, initialState };
 };
 export default usePasswordVisibility;
