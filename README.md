@@ -47,6 +47,7 @@ Initializing:-
 - added spinner on creating an account and disabled the button to prevent multiple submit.
 - structured the folder for components separately(first for signin-signup).
 - made code more modular, readable and reusable.
+- created FormWrapper component
 
 how am i making UI better:-
 - consistent same color theme

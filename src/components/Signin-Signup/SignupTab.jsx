@@ -7,9 +7,10 @@ import usePasswordVisibility from "../../hooks/usePasswordVisibility";
 import useErrorTimeout from "../../hooks/useErrorTimeout";
 import EmailVerificationModal from "./EmailVerificationModal";
 import InputFields from "./InputFields";
-import AuthStatusMessage from "./AuthStatusMessage";
 import SubmitButton from "./SubmitButton";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import StatusMessage from "./StatusMessage";
+import FormWrapper from "./FormWrapper";
 
 const SignupTab = () => {
   const [showVerificationModal, setShowVerificationModal] = useState(false);
@@ -30,10 +31,12 @@ const SignupTab = () => {
     clearErrors,
   } = useFormValidation(formData, authModalConfig.signup);
 
-  const { showPassword, togglePasswordVisibility, setShowPassword, initialState } = usePasswordVisibility([
-    "password",
-    "confirmPassword",
-  ]);
+  const {
+    showPassword,
+    togglePasswordVisibility,
+    setShowPassword,
+    initialState,
+  } = usePasswordVisibility(["password", "confirmPassword"]);
 
   const {
     authStatus,
@@ -73,49 +76,43 @@ const SignupTab = () => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col justify-center relative">
-        <h2 className="text-center font-montserrat text-2xl font-bold text-fresh-1500">
-          Create an account with Playo
-        </h2>
-        <form
-          className="mt-6 w-100 mx-auto"
-          onSubmit={handleSubmit}
-          noValidate
-          id="signup-form"
-        >
-          {authModalConfig?.signup?.fields?.map((field) => (
-            <InputFields
-              key={field?.name}
-              field={field}
-              formData={formData}
-              errors={errors}
-              validFields={validFields}
-              showPassword={showPassword}
-              togglePasswordVisibility={togglePasswordVisibility}
-              handleInput={handleInput}
-              validateOnChange={validateOnChange}
-            />
-          ))}
-          <SubmitButton
-            label="Create Account"
+      <FormWrapper
+        title="Create an account with Playo"
+        onSubmit={handleSubmit}
+        formId="signup-form"
+      >
+        {authModalConfig?.signup?.fields?.map((field) => (
+          <InputFields
+            key={field?.name}
+            field={field}
+            formData={formData}
             errors={errors}
-            showSpinner={showSpinner}
+            validFields={validFields}
+            showPassword={showPassword}
+            togglePasswordVisibility={togglePasswordVisibility}
+            handleInput={handleInput}
+            validateOnChange={validateOnChange}
           />
-        </form>
-        {showVerificationModal && (
-          <EmailVerificationModal
-            email={submittedEmail}
-            onResend={resendVerification}
-            onStartOver={handleStartOver}
-            emailVerificationModalStatus={emailVerificationModalStatus}
-            setEmailVerificationModalStatus={setEmailVerificationModalStatus}
-          />
-        )}
-        <div>
-          <AuthOptions />
-        </div>
-        <AuthStatusMessage authStatus={authStatus} />
+        ))}
+        <SubmitButton
+          label="Create Account"
+          errors={errors}
+          showSpinner={showSpinner}
+        />
+      </FormWrapper>
+      {showVerificationModal && (
+        <EmailVerificationModal
+          email={submittedEmail}
+          onResend={resendVerification}
+          onStartOver={handleStartOver}
+          emailVerificationModalStatus={emailVerificationModalStatus}
+          setEmailVerificationModalStatus={setEmailVerificationModalStatus}
+        />
+      )}
+      <div>
+        <AuthOptions />
       </div>
+      <StatusMessage status={authStatus} positionClass="bottom-3 -right-85" />
     </>
   );
 };
